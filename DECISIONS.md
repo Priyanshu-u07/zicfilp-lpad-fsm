@@ -12,8 +12,10 @@ This file is the single source of truth; chat memory is not.
   tested `negedge rstn_i`) — matched, not asserted.
 - **`state_o` enum-typed output** — for observability, not necessity; a bind-based
   checker could replace it. Its encoding is public API, hence explicit values.
-- **`error_o`** — models the LPU exception-request line (`ex.valid`); redundant in
-  information with `state_o == LPAD_ERROR` but distinct in role (trap signal vs debug).
+- **`error_o`** — models the point where the ratified Zicfilp mechanism raises a
+  software-check exception (cause=18, xtval=2 "landing pad fault") on a violation;
+  redundant in information with `state_o == LPAD_ERROR` but distinct in role
+  (trap signal vs debug).
 
 ## Encodings (single source of truth: lpad_pkg.sv)
 - States: `LPAD_IDLE=2'd0, LPAD_CHECK=2'd1, LPAD_ERROR=2'd2` — explicit (observable API).
@@ -70,7 +72,3 @@ This file is the single source of truth; chat memory is not.
   `sorry: Case unique/unique0 qualities are ignored`, so `unique` would be silently
   dropped by part of the toolchain — plain `case` + fail-closed `default` instead.
 
-## Claims parked (verify before use — NOT for the coding challenge)
-- "Sargantana commits 2/cycle, so the multi-commit-port LPU chaining transfers."
-  CVA6 half verified (CVA6-CFI paper); Sargantana half unverified. Cover-letter only,
-  after grepping the Sargantana RTL for commit-port width.
