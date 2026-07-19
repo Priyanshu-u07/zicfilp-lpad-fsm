@@ -3,6 +3,9 @@
 Every entry is a locked decision with its one-line justification.
 This file is the single source of truth; chat memory is not.
 
+**Scope:** decisions about the code that a mentor would ask "why" about.
+Process, planning, and status live elsewhere.
+
 ## Interface
 - **No `valid_i` port.** Primary reason: spec fidelity — the challenge specifies
   a packet every cycle, so a valid strobe would model a *different machine* than
@@ -65,8 +68,11 @@ This file is the single source of truth; chat memory is not.
 - Each violation test is preceded by a reset.
 
 ## Tools
-- **Sim:** `iverilog -g2012` (simple, portable, empirically run). Verilator
-  `--binary --timing` is a supported alternative so a Verilator-only user isn't blocked.
+- **Sim:** `iverilog -g2012` (primary; `make`). Verilator `--binary --timing
+  --timescale 1ns/1ps` is a verified alternative (`make sim-vl`); the flag is
+  required because the TB carries a `timescale but the RTL does not -- matching
+  Sargantana's convention (23 timescale files in the repo, all testbenches, 0
+  design files).
 - **Lint:** `verilator --lint-only -Wall` — zero warnings required.
 - Plain `case` is verified, not just preferred: Icarus prints
   `sorry: Case unique/unique0 qualities are ignored`, so `unique` would be silently

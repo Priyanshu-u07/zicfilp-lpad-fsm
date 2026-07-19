@@ -1,0 +1,4 @@
+# Build artifacts
+sim.vvp
+obj_dir/
+*.vcd
