@@ -1,5 +1,7 @@
 # zicfilp-lpad-fsm
 
+![CI](https://github.com/Priyanshu-u07/zicfilp-lpad-fsm/actions/workflows/ci.yml/badge.svg)
+
 A synthesizable SystemVerilog FSM modeling the RISC-V **Zicfilp** landing-pad
 enforcement mechanism, with a self-checking testbench, bound SVA assertions, and
 dual-simulator support (Icarus Verilog and Verilator).
