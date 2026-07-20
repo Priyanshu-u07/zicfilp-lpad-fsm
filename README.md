@@ -111,19 +111,21 @@ The assertion layer was **mutation-tested**: deliberately breaking the
 sticky-ERROR transition makes `a_error_sticky` fail (at 435 ns), confirming the
 assertions catch real faults rather than passing vacuously.
 
-**Reproducibility.** Icarus runs are bit-identical across machines (`$finish` at
-`16450000 ps`, verified on two machines). Each engine is deterministic within
-itself; the random sequences differ between engines because Verilator ignores
-`$random`'s seed argument.
+**Reproducibility.** Icarus runs are bit-identical across machines — `$finish`
+at `16450000 ps`, reproduced locally and by CI on a clean GitHub runner (visible
+in the Actions log). Each engine is deterministic within itself; the random
+sequences differ between engines because Verilator ignores `$random`'s seed
+argument.
 
 ## Repository layout
 
 ```
-rtl/lpad_pkg.sv         shared state/command encodings
-rtl/lpad_fsm.sv         the FSM (synthesizable)
-rtl/lpad_fsm_props.sv   SVA properties, bound to the FSM
-tb/tb_lpad_fsm.sv       self-checking testbench (directed + randomized)
-Makefile                build/run/lint/assert targets
+rtl/lpad_pkg.sv           shared state/command encodings
+rtl/lpad_fsm.sv           the FSM (synthesizable)
+rtl/lpad_fsm_props.sv     SVA properties, bound to the FSM
+tb/tb_lpad_fsm.sv         self-checking testbench (directed + randomized)
+Makefile                  build/run/lint/assert targets
+.github/workflows/ci.yml  continuous integration (Icarus + Verilator)
 ```
 
 ## License
