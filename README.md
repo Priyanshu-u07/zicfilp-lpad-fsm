@@ -32,7 +32,10 @@ Three states, mapped to the real Zicfilp mechanism:
 |--------------|------------------|-----------------------------------|
 | `LPAD_IDLE`  | `NO_LP_EXPECTED` | normal execution                  |
 | `LPAD_CHECK` | `LP_EXPECTED`    | a landing pad must arrive next    |
-| `LPAD_ERROR` | (trapped)        | models a raised CFI exception     |
+| `LPAD_ERROR` | (trapped)        | models a raised CFI exception<sup>*</sup> |
+
+<sup>*</sup> In the ratified Zicfilp spec, a landing-pad violation raises a
+software-check exception (cause 18, `xtval` = 2, "landing pad fault").
 
 | State | Input                | Next  | Action                          |
 |-------|----------------------|-------|---------------------------------|
