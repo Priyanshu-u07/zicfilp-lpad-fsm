@@ -67,6 +67,14 @@ Process, planning, and status live elsewhere.
   `lpad_pkg` does not break this: the *alphabet* is shared, the *behavior* is not.
 - Each violation test is preceded by a reset.
 
+## Assertions (lpad_fsm_props.sv)
+- Four properties (ERROR sticky, no-false-trap, only-matching-LPAD-exits-CHECK,
+  label-stable-unless-SET-in-IDLE) in a SEPARATE module attached by `bind` --
+  keeps the RTL clean and adds no verification-only ports to the design.
+- Run under Verilator `--assert` (`make assert`); Icarus can't run concurrent
+  SVA (it ignores even unique-case, verified). The same file is reusable by
+  SymbiYosys for a bounded formal proof.
+
 ## Tools
 - **Sim:** `iverilog -g2012` (primary; `make`). Verilator `--binary --timing
   --timescale 1ns/1ps` is a verified alternative (`make sim-vl`); the flag is
